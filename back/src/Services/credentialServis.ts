@@ -1,5 +1,3 @@
-import e from "express";
-import { ICredential } from "../interfaces/ICredentialInterface";
 import { Credential } from "../entities/Credential.entities";
 import { CredentialModel } from "../config/data-source";
 import { EntityManager } from "typeorm";
@@ -15,17 +13,15 @@ const crypPass = async (password: string): Promise<string> => {
     return hashHex;
 };
 
-/* chequea que no existan dos usuarios iguales */
-const checkUserExists = async(username: string): Promise<void> => {
-    const credentialFound = await CredentialModel.findOne({ where:
-        {username: username}
-    });
-
-    if (credentialFound) throw new Error(`El usuario ${username} ya existe, por favor elija otro.`);
-}
-
 export const getCredentialService = async (entityManager:EntityManager, username: string, password: string): Promise<Credential> =>{
-    
+        const credentialFound = await CredentialModel.findOne({
+            where: { username: username }
+        });
+
+        if (credentialFound) {
+            throw new Error(`El usuario ${username} ya existe, por favor elija otro.`);
+        }
+
         const credential: Credential = entityManager.create(Credential, {
             username: username,
             password: await crypPass(password)

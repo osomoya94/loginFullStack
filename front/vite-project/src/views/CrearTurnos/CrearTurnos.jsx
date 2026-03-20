@@ -37,7 +37,7 @@ const CrearTurnos = () => {
         Swal.fire({
             icon: 'error',
             title: 'Error al crear turno',
-            text: err.response?.data?.message || 'Error desconocido'
+            text: err?.response?.data?.message || err?.message || 'Error desconocido'
             });
         } finally {
         formik.resetForm()

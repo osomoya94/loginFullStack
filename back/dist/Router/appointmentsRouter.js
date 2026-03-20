@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const appointmentsController_1 = require("../Controllers/appointmentsController");
-const router = (0, express_1.Router)();
-router.get("/", appointmentsController_1.getAppointments);
-router.get("/:id", appointmentsController_1.getAppointmentsById);
-router.post("/schedule", appointmentsController_1.createAppointments);
-router.put("/cancel", appointmentsController_1.cancelAppointments);
-exports.default = router;
+const appointmentsRoutes = (0, express_1.Router)();
+appointmentsRoutes.get("/", (req, res) => (0, appointmentsController_1.getAppointmentsController)(req, res));
+appointmentsRoutes.get("/:id", (req, res) => (0, appointmentsController_1.getAppointmentsByIdController)(req, res));
+appointmentsRoutes.post("/schedule", (req, res) => (0, appointmentsController_1.scheduleAppointmentsController)(req, res));
+appointmentsRoutes.put("/cancel/:id", (req, res) => (0, appointmentsController_1.cancelAppointmentsController)(req, res));
+exports.default = appointmentsRoutes;

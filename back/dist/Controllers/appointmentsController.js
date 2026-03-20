@@ -9,20 +9,65 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cancelAppointments = exports.createAppointments = exports.getAppointmentsById = exports.getAppointments = void 0;
-const getAppointments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("estamos en la ruta de gat user probando");
+exports.cancelAppointmentsController = exports.scheduleAppointmentsController = exports.getAppointmentsByIdController = exports.getAppointmentsController = void 0;
+const appoimentServis_1 = require("../Services/appoimentServis");
+const getAppointmentsController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const appointments = yield (0, appoimentServis_1.getAppointmentServis)();
+        res.status(200).json({
+            message: "Citas obtenidas correctamente",
+            data: appointments
+        });
+    }
+    catch (error) {
+        res.status(404).json({
+            message: error instanceof Error ? error.message : "Error desconocido"
+        });
+    }
 });
-exports.getAppointments = getAppointments;
-const getAppointmentsById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("estamos en la ruta de gat user probando en id");
+exports.getAppointmentsController = getAppointmentsController;
+const getAppointmentsByIdController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const appointment = yield (0, appoimentServis_1.getAppointmentByIdServis)(parseInt(req.params.id));
+        res.status(200).json({
+            message: "Obtener el detalle de un turno específico",
+            data: appointment
+        });
+    }
+    catch (error) {
+        res.status(404).json({
+            message: error instanceof Error ? error.message : "Error desconocido"
+        });
+    }
 });
-exports.getAppointmentsById = getAppointmentsById;
-const createAppointments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("estamos en la ruta de post user probando en id");
+exports.getAppointmentsByIdController = getAppointmentsByIdController;
+const scheduleAppointmentsController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const newAppointment = yield (0, appoimentServis_1.registerAppService)(req.body);
+        res.status(201).json({
+            message: "Agendar una cita",
+            data: newAppointment
+        });
+    }
+    catch (error) {
+        res.status(400).json({
+            message: error instanceof Error ? error.message : "Error desconocido"
+        });
+    }
 });
-exports.createAppointments = createAppointments;
-const cancelAppointments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("estamos en la ruta de post de login");
+exports.scheduleAppointmentsController = scheduleAppointmentsController;
+const cancelAppointmentsController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const cancelledAppointment = yield (0, appoimentServis_1.cancelAppointmentService)(parseInt(req.params.id, 10));
+        res.status(200).json({
+            message: "Cambiar el estado de una cita a cancelada",
+            data: cancelledAppointment
+        });
+    }
+    catch (error) {
+        res.status(404).json({
+            message: error instanceof Error ? error.message : "Error desconocido"
+        });
+    }
 });
-exports.cancelAppointments = cancelAppointments;
+exports.cancelAppointmentsController = cancelAppointmentsController;

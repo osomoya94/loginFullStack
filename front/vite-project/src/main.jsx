@@ -7,6 +7,7 @@ import {BrowserRouter} from "react-router-dom"
 import { UserProvider } from '../context/UsersContex.jsx'
 import { HomeProvider } from '../context/HomeContex.jsx'
 
+console.log("API:", import.meta.env.VITE_API_URL);
 createRoot(document.getElementById('root')).render(
   <StrictMode>
   <HomeProvider>

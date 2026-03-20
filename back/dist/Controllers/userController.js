@@ -9,20 +9,63 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = exports.createUser = exports.getUserById = exports.getUser = void 0;
-const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("estamos en la ruta de gat user probando");
+exports.loginUserController = exports.registerUserController = exports.getUserByIdController = exports.getUserController = void 0;
+const userServis_1 = require("../Services/userServis");
+const getUserController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const users = yield (0, userServis_1.getUserServis)();
+        res.status(200).json({
+            message: "Usuarios obtenidos correctamente",
+            data: users
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: error instanceof Error ? error.message : "Error desconocido al obtener usuarios"
+        });
+    }
 });
-exports.getUser = getUser;
-const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("estamos en la ruta de gat user probando en id");
+exports.getUserController = getUserController;
+const getUserByIdController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userFound = yield (0, userServis_1.getUserByidServis)(parseInt(req.params.id));
+        res.status(200).json({ userFound });
+    }
+    catch (error) {
+        res.status(404).json({
+            message: error instanceof Error ? error.message : "Error desconocido"
+        });
+    }
 });
-exports.getUserById = getUserById;
-const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("estamos en la ruta de post user probando en id");
+exports.getUserByIdController = getUserByIdController;
+const registerUserController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userRegisterResponse = yield (0, userServis_1.registerUserService)(req.body);
+        res.status(201).json({
+            message: "Usuario registrado correctamente",
+            data: userRegisterResponse
+        });
+    }
+    catch (error) {
+        const err = error;
+        res.status(400).json({
+            message: err instanceof Error ? err.detail ? err.detail : err.message : "Error desconocido "
+        });
+    }
 });
-exports.createUser = createUser;
-const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("estamos en la ruta de post de login");
+exports.registerUserController = registerUserController;
+const loginUserController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield (0, userServis_1.loginUserService)(req.body);
+        res.status(200).json({
+            login: true,
+            user
+        });
+    }
+    catch (error) {
+        res.status(400).json({
+            message: error instanceof Error ? error.message : "Error desconocido "
+        });
+    }
 });
-exports.loginUser = loginUser;
+exports.loginUserController = loginUserController;

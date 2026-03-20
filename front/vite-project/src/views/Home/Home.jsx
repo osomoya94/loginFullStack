@@ -6,16 +6,12 @@ const Home = () => {
     const { userName, getUserAppointments } = useHomeContext();
 
     useEffect(() => {
-    const storedUser = localStorage.getItem("userId");
-    if (storedUser) {
-        const userId = JSON.parse(storedUser);
-        getUserAppointments(userId);
-    }
+        getUserAppointments();
     }, []);
 
     return (
     <div className={styles.divPrincipal}>
-        <h1>Hola, {userName}</h1>
+        <h1>Hola, {userName || "usuario"}</h1>
         <h2>Gracias por elegir Your Style</h2>
     </div>
     );

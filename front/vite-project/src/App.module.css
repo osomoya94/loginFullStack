@@ -75,7 +75,7 @@
             rgba(0, 0, 0, 0.4),
             rgba(0, 0, 0, 0.4)
         ),
-        url(../public/images/fondo.jpg);
+        url(/images/logo.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

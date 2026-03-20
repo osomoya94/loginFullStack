@@ -45,11 +45,11 @@ function App() {
           
           <Route path='/login' element={ 
             <div className={styles.loginContainer} >
-              <div className={styles.loginWrapper}>
+                <div className={styles.loginWrapper}>
                 <div className={styles.leftPanel}>
                     <h2>Bienvenido</h2>
                     <div className={styles.logoPlaceholder}>
-                        <img src='../public/images/logo.jpg' alt="Logo" className={styles.imgLogo }/>
+                        <img src='/images/logo.jpg' alt="Logo" className={styles.imgLogo }/>
                     </div>
                 </div>
                 <div className={styles.rightPanel}>

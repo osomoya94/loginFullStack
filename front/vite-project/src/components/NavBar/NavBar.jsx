@@ -23,7 +23,7 @@ const NavBar = () => {
                 <div className={styles.divPrincipal}>
                     <div>
                         <li className={styles.logo}>
-                            <img src='../public/images/Logo.jpg' alt="Logo" className={styles.imgLogo }/>
+                            <img src='/images/logo.jpg' alt="Logo" className={styles.imgLogo }/>
                         </li>
                     </div>
 
